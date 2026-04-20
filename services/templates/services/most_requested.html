@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Most Requested Services{% endblock %}
+
+{% block content %}
+<h1>Most Requested Services</h1>
+<div class='services_list_wrapper'>
+    {% if services %}
+        <ul class="services_list">
+        {% for service in services %}
+            <li class="service-item">
+                <div>
+                    <a href="{% url 'single_service' service.id %}">{{ service.name }}</a>
+                    - {{ service.field }} ❱❱ {{ service.price_hour }}
+                    - {{ service.request_count }} requests
+                </div>    
+                <div class="company">
+                    Provided by: 
+                    <a href="{% url 'company_profile' service.company.user.username %}">
+                    {{ service.company.user.username }} 
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Sorry, no requested services available yet.</h2>
+    {% endif %}
+</div>
+{% endblock %}
